@@ -14,8 +14,6 @@ app.use(
   })
 );
 
-const GITHUB_WEBHOOK_SECRET = process.env.GITHUB_WEBHOOK_SECRET || '';
-
 
 // ----------------------------------------------------------------------------
 // Healthcheck or any additional endpoints
@@ -28,4 +26,7 @@ app.get('/', (_req, res) => {
 // 5) Start the Server
 // ----------------------------------------------------------------------------
 const PORT = process.env.PORT || 3011;
+app.listen(PORT, () => {
+  console.log(`Multi-tenant webhook server listening on port ${PORT}`);
+});
 
