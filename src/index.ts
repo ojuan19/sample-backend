@@ -19,7 +19,7 @@ app.use(
 // Healthcheck or any additional endpoints
 // ----------------------------------------------------------------------------
 app.get('/', (_req, res) => {
-  res.send('App is running .');
+  res.send('App is running hola mundo');
 });
 
 // ----------------------------------------------------------------------------
