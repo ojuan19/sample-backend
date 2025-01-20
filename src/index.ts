@@ -21,7 +21,7 @@ const GITHUB_WEBHOOK_SECRET = process.env.GITHUB_WEBHOOK_SECRET || '';
 // Healthcheck or any additional endpoints
 // ----------------------------------------------------------------------------
 app.get('/', (_req, res) => {
-  res.send('App is running');
+  res.send('App is running .');
 });
 
 // ----------------------------------------------------------------------------
