@@ -1,44 +1,33 @@
 import React from 'react';
 
-interface Patient {
-  id: number;
-  name: string;
+type Patient = {
+  firstName: string;
+  lastName: string;
   age: number;
-  medicalHistory: string;
-}
+};
 
 interface PatientListProps {
   patients: Patient[];
-  deletePatient: (id: number) => void;
+  deletePatient: (index: number) => void;
 }
 
 const PatientList: React.FC<PatientListProps> = ({ patients, deletePatient }) => {
   return (
-    <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 h-full">
-      <h2 className="text-gray-700 text-lg font-bold mb-4">Patient List</h2>
-      {patients.length === 0 ? (
-        <p className="text-gray-500">No patients to display</p>
-      ) : (
-        <ul>
-          {patients.map(patient => (
-            <li key={patient.id} className="mb-4 border-b pb-2">
-              <div className="flex justify-between items-center">
-                <div>
-                  <p className="text-gray-900 font-bold">{patient.name}</p>
-                  <p className="text-gray-700">Age: {patient.age}</p>
-                  <p className="text-gray-600">Medical History: {patient.medicalHistory}</p>
-                </div>
-                <button
-                  onClick={() => deletePatient(patient.id)}
-                  className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded"
-                >
-                  Delete
-                </button>
-              </div>
-            </li>
-          ))}
-        </ul>
-      )}
+    <div className="p-4 bg-gray-800 text-white rounded shadow-md">
+      <h2 className="text-xl mb-4">Patient List</h2>
+      <ul>
+        {patients.map((patient, index) => (
+          <li key={index} className="flex justify-between items-center mb-2 p-2 bg-gray-700 rounded">
+            <span>{`${patient.firstName} ${patient.lastName}, Age: ${patient.age}`}</span>
+            <button 
+              onClick={() => deletePatient(index)} 
+              className="ml-4 py-1 px-2 bg-red-600 rounded hover:bg-red-500 transition"
+            >
+              Delete
+            </button>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };

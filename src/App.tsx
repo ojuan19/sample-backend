@@ -1,40 +1,28 @@
 import React, { useState } from 'react';
-import CreatePatientForm from './components/CreatePatientForm';
+import PatientForm from './components/PatientForm';
 import PatientList from './components/PatientList';
+import './index.css';
 
-interface Patient {
-  id: number;
-  name: string;
-  age: number;
-  medicalHistory: string;
-}
+function App() {
+  const [patients, setPatients] = useState([]);
 
-const App: React.FC = () => {
-  const [patients, setPatients] = useState<Patient[]>([]);
-
-  const addPatient = (patient: Omit<Patient, 'id'>) => {
-    setPatients((prevPatients) => [
-      ...prevPatients,
-      { ...patient, id: prevPatients.length + 1 },
-    ]);
+  const addPatient = (patient) => {
+    setPatients([...patients, patient]);
   };
 
-  const deletePatient = (id: number) => {
-    setPatients((prevPatients) => prevPatients.filter(patient => patient.id !== id));
+  const deletePatient = (index) => {
+    setPatients(patients.filter((_, i) => i !== index));
   };
 
   return (
-    <div className="container mx-auto p-4">
-      <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
-        <div className="md:w-1/2">
-          <CreatePatientForm addPatient={addPatient} />
-        </div>
-        <div className="md:w-1/2">
-          <PatientList patients={patients} deletePatient={deletePatient} />
-        </div>
+    <div className="min-h-screen bg-gray-900 text-white flex flex-col items-center">
+      <h1 className="text-3xl font-bold mt-8">Patient Records</h1>
+      <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-4 container mx-auto">
+        <PatientForm addPatient={addPatient} />
+        <PatientList patients={patients} deletePatient={deletePatient} />
       </div>
     </div>
   );
-};
+}
 
 export default App;
