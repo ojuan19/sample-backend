@@ -1,11 +1,16 @@
 import React from 'react';
-import TodoApp from './components/TodoApp';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import CheckoutPage from './pages/CheckoutPage';
+import NotFoundPage from './pages/NotFoundPage';
 
 function App() {
   return (
-    <div className="App">
-      <TodoApp />
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/checkout" element={<CheckoutPage />} />
+        <Route path="*" element={<NotFoundPage />} />
+      </Routes>
+    </Router>
   );
 }
 
