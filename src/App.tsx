@@ -1,15 +1,11 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import HomePage from './pages/HomePage';
+import TodoApp from './components/TodoApp';
 
 function App() {
   return (
-    <Router>
-      <Switch>
-        <Route path="/" component={HomePage} />
-        {/* Define other routes here */}
-      </Switch>
-    </Router>
+    <div className="App">
+      <TodoApp />
+    </div>
   );
 }
 
