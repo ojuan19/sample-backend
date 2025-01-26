@@ -1,23 +1,26 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Dashboard from './components/Dashboard';
 import PatientForm from './components/PatientForm';
-import Calendar from './components/Calendar';
-import CommunicationLog from './components/CommunicationLog';
+import PatientList from './components/PatientList';
+import Navigation from './components/Navigation';
+import { PatientProvider } from './context/PatientContext';
 
 function App() {
   return (
-    <Router>
-      <div className="min-h-screen bg-gray-100">
-        <Routes>
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/patients" element={<PatientForm />} />
-          <Route path="/appointments" element={<Calendar />} />
-          <Route path="/communications" element={<CommunicationLog />} />
-          <Route path="*" element={<div>Not found</div>} />
-        </Routes>
-      </div>
-    </Router>
+    <PatientProvider>
+      <Router>
+        <div className="min-h-screen bg-gray-100">
+          <Navigation />
+          <div className="container mx-auto p-4">
+            <Routes>
+              <Route path="/" element={<PatientForm />} />
+              <Route path="/create" element={<PatientForm />} />
+              <Route path="/list" element={<PatientList />} />
+            </Routes>
+          </div>
+        </div>
+      </Router>
+    </PatientProvider>
   );
 }
 
