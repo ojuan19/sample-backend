@@ -3,8 +3,9 @@
       "private": true,
       "version": "0.0.0",
       "type": "module",
-      "scripts": {
-        "dev": "vite",
+      "scripts": { 
+        "start": "serve -s dist",
+        "dev": "vite --port $PORT",
         "build": "vite build",
         "lint": "eslint .",
         "preview": "vite preview"
@@ -13,7 +14,8 @@
         "lucide-react": "^0.344.0",
         "react": "^18.3.1",
         "react-dom": "^18.3.1",
-        "react-router-dom": "^7.1.3"
+        "react-router-dom": "^7.1.3",
+        "serve": "^14.2.4"
       },
       "devDependencies": {
         "@eslint/js": "^9.9.1",
