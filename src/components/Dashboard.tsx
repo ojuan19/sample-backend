@@ -1,17 +1,16 @@
 import React from 'react';
+import OverviewTile from './OverviewTile';
 import SearchBar from './SearchBar';
 
-const Dashboard = () => {
+const Dashboard: React.FC = () => {
   return (
-    <div className="p-4">
-      <h1 className="text-2xl mb-4">Dashboard</h1>
-      <div className="mb-4">
-        <h2 className="text-xl">Daily Overview</h2>
-        {/* Add key metrics display here */}
-        <p>Total Appointments: 5</p>
-        <p>Upcoming Tasks: 3</p>
-      </div>
+    <div className="p-4 space-y-4">
       <SearchBar />
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <OverviewTile title="Total Patients" value={120} />
+        <OverviewTile title="Appointments Today" value={5} />
+        <OverviewTile title="Pending Inquiries" value={2} />
+      </div>
     </div>
   );
 };

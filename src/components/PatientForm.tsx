@@ -1,42 +1,56 @@
-import React from 'react';
-import { useForm } from 'react-hook-form';
+import React, { useState } from 'react';
+import { validatePatient } from '../utils/ValidationUtils';
 
-const PatientForm = () => {
-  const { register, handleSubmit, formState: { errors } } = useForm();
+type Patient = {
+  name: string;
+  age: number;
+  ailment: string;
+};
 
-  const onSubmit = (data: any) => {
-    console.log(data);
+const PatientForm: React.FC = () => {
+  const [patient, setPatient] = useState<Patient>({ name: '', age: 0, ailment: '' });
+  
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (validatePatient(patient)) {
+      console.log('Patient data is valid:', patient);
+    } else {
+      console.log('Validation failed for patient data:', patient);
+    }
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setPatient({ ...patient, [name]: value });
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="p-4">
-      <h2 className="text-xl mb-4">Patient Record Form</h2>
-      <div className="mb-4">
-        <label className="block mb-2">Name</label>
-        <input
-          {...register('name', { required: true })}
-          className="border p-2 w-full"
-        />
-        {errors.name && <span className="text-red-500">This field is required</span>}
-      </div>
-      <div className="mb-4">
-        <label className="block mb-2">Date of Birth</label>
-        <input
-          type="date"
-          {...register('dob', { required: true })}
-          className="border p-2 w-full"
-        />
-        {errors.dob && <span className="text-red-500">This field is required</span>}
-      </div>
-      <div className="mb-4">
-        <label className="block mb-2">Contact Info</label>
-        <input
-          {...register('contact', { required: true })}
-          className="border p-2 w-full"
-        />
-        {errors.contact && <span className="text-red-500">This field is required</span>}
-      </div>
-      <button type="submit" className="bg-green-500 text-white p-2">Submit</button>
+    <form className="space-y-4" onSubmit={handleSubmit}>
+      <input
+        type="text"
+        name="name"
+        placeholder="Patient Name"
+        value={patient.name}
+        onChange={handleChange}
+        className="w-full p-2 border border-gray-300 rounded"
+      />
+      <input
+        type="number"
+        name="age"
+        placeholder="Age"
+        value={patient.age}
+        onChange={handleChange}
+        className="w-full p-2 border border-gray-300 rounded"
+      />
+      <input
+        type="text"
+        name="ailment"
+        placeholder="Ailment"
+        value={patient.ailment}
+        onChange={handleChange}
+        className="w-full p-2 border border-gray-300 rounded"
+      />
+      <button type="submit" className="bg-indigo-500 text-white p-2 rounded">Submit</button>
     </form>
   );
 };
