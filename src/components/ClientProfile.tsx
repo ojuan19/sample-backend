@@ -1,29 +1,30 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { CheckoutContext } from '../context/CheckoutContext';
 
 const ClientProfile: React.FC = () => {
-  const [form, setForm] = useState({
-    name: '',
-    email: '',
-    address: ''
-  });
+  const navigate = useNavigate();
+  const { setProfile } = useContext(CheckoutContext);
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [address, setAddress] = useState('');
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setForm({ ...form, [name]: value });
-  };
-
-  const validateForm = () => {
-    return form.name && form.email && form.address;
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setProfile({ name, email, address });
+    navigate('/shipping');
   };
 
   return (
-    <div className="p-4">
+    <div className="container mx-auto p-4">
       <h2 className="text-xl font-bold mb-4">Client Profile</h2>
-      <form className="space-y-4">
-        <input type="text" name="name" placeholder="Name" value={form.name} onChange={handleChange} className="block w-full border p-2" required />
-        <input type="email" name="email" placeholder="Email" value={form.email} onChange={handleChange} className="block w-full border p-2" required />
-        <input type="text" name="address" placeholder="Address" value={form.address} onChange={handleChange} className="block w-full border p-2" required />
-        <button type="button" disabled={!validateForm()} className="bg-blue-500 text-white px-4 py-2 rounded disabled:bg-gray-400">Save</button>
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <input type="text" placeholder="Name" className="input-field" value={name} onChange={(e) => setName(e.target.value)} />
+        <input type="email" placeholder="Email" className="input-field" value={email} onChange={(e) => setEmail(e.target.value)} />
+        <input type="text" placeholder="Address" className="input-field" value={address} onChange={(e) => setAddress(e.target.value)} />
+        <button type="submit" className="bg-green-500 text-white px-4 py-2 rounded">
+          Continue to Shipping
+        </button>
       </form>
     </div>
   );

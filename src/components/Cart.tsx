@@ -1,41 +1,29 @@
-import React, { useState } from 'react';
-
-interface CartItem {
-  id: number;
-  name: string;
-  price: number;
-  quantity: number;
-}
+import React, { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { CheckoutContext } from '../context/CheckoutContext';
 
 const Cart: React.FC = () => {
-  const [cartItems, setCartItems] = useState<CartItem[]>([{
-    id: 1,
-    name: 'Sample Item',
-    price: 29.99,
-    quantity: 1
-  }]);
-
-  const updateQuantity = (id: number, quantity: number) => {
-    setCartItems(cartItems.map(item => item.id === id ? { ...item, quantity } : item));
-  };
-
-  const total = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
-
+  const navigate = useNavigate();
+  const { items } = useContext(CheckoutContext);
+  
   return (
-    <div className="p-4">
+    <div className="container mx-auto p-4">
       <h2 className="text-xl font-bold mb-4">Shopping Cart</h2>
       <ul>
-        {cartItems.map(item => (
-          <li key={item.id} className="border-b py-2 flex justify-between">
-            <span>{item.name}</span>
-            <span>${item.price.toFixed(2)}</span>
-            <input type="number" value={item.quantity} onChange={(e) => updateQuantity(item.id, parseInt(e.target.value))} className="w-12 text-center" min="1" />
+        {items.map(item => (
+          <li key={item.id} className="mb-2 p-2 border-b border-gray-300">
+            <div className="flex justify-between">
+              <span>{item.name}</span>
+              <span>${item.price} x {item.quantity}</span>
+            </div>
           </li>
         ))}
       </ul>
-      <div className="mt-4 text-right">
-        <span className="font-bold">Total: </span>${total.toFixed(2)}
-      </div>
+      <button 
+        onClick={() => navigate('/client-profile')} 
+        className="bg-blue-500 text-white px-4 py-2 rounded mt-4">
+        Proceed to Client Profile
+      </button>
     </div>
   );
 };

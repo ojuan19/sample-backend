@@ -1,27 +1,41 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { CheckoutContext } from '../context/CheckoutContext';
 
 const Shipping: React.FC = () => {
-  const [selectedSLA, setSelectedSLA] = useState<string>('standard');
+  const navigate = useNavigate();
+  const { setShipping } = useContext(CheckoutContext);
+  const [selectedMethod, setSelectedMethod] = useState('');
 
-  const shippingOptions = [
-    { id: 'standard', label: 'Standard Shipping (5-7 days, Free)', cost: 0 },
-    { id: 'express', label: 'Express Shipping (2-3 days, $9.99)', cost: 9.99 },
-    { id: 'overnight', label: 'Overnight Shipping (1 day, $19.99)', cost: 19.99 }
-  ];
+  const handleSelect = (method: string) => {
+    setSelectedMethod(method);
+  };
+
+  const handleSubmit = () => {
+    setShipping(selectedMethod);
+    navigate('/payment');
+  };
 
   return (
-    <div className="p-4">
-      <h2 className="text-xl font-bold mb-4">Shipping Method</h2>
-      <form className="space-y-2">
-        {shippingOptions.map(option => (
-          <label key={option.id} className="block">
-            <input type="radio" name="shipping" value={option.id} checked={selectedSLA === option.id} onChange={() => setSelectedSLA(option.id)} className="mr-2" />
-            {option.label}
-          </label>
-        ))}
-      </form>
+    <div className="container mx-auto p-4">
+      <h2 className="text-xl font-bold mb-4">Shipping</h2>
+      <ul className="space-y-2">
+        <li>
+          <button onClick={() => handleSelect('standard')} className={`shipping-option ${selectedMethod === 'standard' ? 'selected' : ''}`}>
+            Standard - $5.00 (3-5 business days)
+          </button>
+        </li>
+        <li>
+          <button onClick={() => handleSelect('express')} className={`shipping-option ${selectedMethod === 'express' ? 'selected' : ''}`}>
+            Express - $15.00 (1-2 business days)
+          </button>
+        </li>
+      </ul>
+      <button onClick={handleSubmit} className="bg-purple-500 text-white px-4 py-2 rounded mt-4">
+        Proceed to Payment
+      </button>
     </div>
   );
-};
+}
 
 export default Shipping;
