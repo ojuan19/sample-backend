@@ -1,18 +1,13 @@
 import React from 'react';
-import Header from './components/Header';
-import Footer from './components/Footer';
-import AppRoutes from './components/AppRoutes';
 
-const App: React.FC = () => {
+function App() {
   return (
-    <div className="flex flex-col min-h-screen">
-      <Header />
-      <div className="flex-grow">
-        <AppRoutes />
-      </div>
-      <Footer />
+    <div className="flex items-center justify-center min-h-screen">
+      <h1 className="text-center text-4xl font-extrabold text-blue-600">
+        Hello, World!
+      </h1>
     </div>
   );
-};
+}
 
 export default App;
