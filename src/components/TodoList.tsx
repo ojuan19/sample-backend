@@ -2,17 +2,17 @@ import React from 'react';
 import TodoItem from './TodoItem';
 
 interface TodoListProps {
-  todos: { id: string; title: string; }[];
-  onDelete: (id: string) => void;
+  todos: { id: number, text: string }[];
+  removeTodo: (id: number) => void;
 }
 
-const TodoList: React.FC<TodoListProps> = ({ todos, onDelete }) => {
+const TodoList: React.FC<TodoListProps> = ({ todos, removeTodo }) => {
   return (
-    <div className="p-4">
+    <ul className="list-disc pl-5">
       {todos.map(todo => (
-        <TodoItem key={todo.id} todo={todo} onDelete={onDelete} />
+        <TodoItem key={todo.id} todo={todo} removeTodo={removeTodo} />
       ))}
-    </div>
+    </ul>
   );
 };
 
