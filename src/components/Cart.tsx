@@ -1,51 +1,33 @@
 import React, { useState } from 'react';
 
 interface CartItem {
-  id: number;
   name: string;
-  price: number;
   quantity: number;
+  price: number;
 }
 
 const Cart: React.FC = () => {
-  const [items, setItems] = useState<CartItem[]>([
-    { id: 1, name: 'Item 1', price: 25, quantity: 2 },
-    { id: 2, name: 'Item 2', price: 15, quantity: 1 },
+  const [items, setItems] = useState<CartItem[]>([ // Sample data
+    { name: 'Product 1', quantity: 1, price: 100 },
+    { name: 'Product 2', quantity: 2, price: 50 },
   ]);
 
-  const handleQuantityChange = (id: number, quantity: number) => {
-    setItems((prevItems) =>
-      prevItems.map((item) =>
-        item.id === id ? { ...item, quantity } : item
-      )
-    );
-  };
-
-  const calculateTotal = () => {
-    return items.reduce((acc, item) => acc + item.price * item.quantity, 0);
-  };
+  const totalPrice = items.reduce((total, item) => total + item.quantity * item.price, 0);
 
   return (
-    <div className="p-4 bg-gray-800 text-white rounded-lg">
-      <h2 className="text-xl font-bold mb-4">Cart</h2>
+    <div className="p-4 bg-white dark:bg-gray-800">
+      <h2 className="text-lg font-bold mb-4 dark:text-white">Cart</h2>
       <ul>
-        {items.map((item) => (
-          <li key={item.id} className="border-b py-2 flex justify-between">
-            <span>{item.name}</span>
-            <span>${item.price.toFixed(2)}</span>
-            <input
-              type="number"
-              className="w-16 text-black text-center"
-              value={item.quantity}
-              min="1"
-              onChange={(e) => handleQuantityChange(item.id, parseInt(e.target.value))}
-            />
-            <span>${(item.price * item.quantity).toFixed(2)}</span>
+        {items.map((item, index) => (
+          <li key={index} className="flex justify-between items-center py-2 dark:text-white">
+            <span>{item.name} - ${item.price} x {item.quantity}</span>
+            <span>${item.quantity * item.price}</span>
           </li>
         ))}
       </ul>
-      <div className="mt-4 font-semibold">
-        Total: ${calculateTotal().toFixed(2)}
+      <div className="border-t mt-4 pt-4 flex justify-between dark:text-white">
+        <span>Total</span>
+        <span>${totalPrice}</span>
       </div>
     </div>
   );

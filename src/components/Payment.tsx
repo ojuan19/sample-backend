@@ -1,28 +1,24 @@
 import React, { useState } from 'react';
 
 const Payment: React.FC = () => {
-  const [selectedMethod, setSelectedMethod] = useState<string>('');
-  const paymentMethods = ['Credit Card', 'PayPal'];
+  const paymentMethods = ['Credit Card', 'PayPal', 'Bank Transfer'];
+  const [selectedMethod, setSelectedMethod] = useState<string>(paymentMethods[0]);
 
   return (
-    <div className="p-4 bg-gray-800 text-white rounded-lg">
-      <h2 className="text-xl font-bold mb-4">Payment Method</h2>
-      <ul>
-        {paymentMethods.map((method, index) => (
-          <li key={index} className="py-2">
-            <input
-              type="radio"
-              id={`payment-${method}`}
-              name="payment"
-              value={method}
-              checked={selectedMethod === method}
-              onChange={() => setSelectedMethod(method)}
-              className="mr-2"
-            />
-            <label htmlFor={`payment-${method}`}>{method}</label>
-          </li>
-        ))}
-      </ul>
+    <div className="p-4 bg-white dark:bg-gray-800">
+      <h2 className="text-lg font-bold mb-4 dark:text-white">Payment</h2>
+      {paymentMethods.map((method) => (
+        <div className="flex items-center mb-2 dark:text-white" key={method}>
+          <input
+            type="radio"
+            name="payment"
+            checked={selectedMethod === method}
+            onChange={() => setSelectedMethod(method)}
+            className="mr-2"
+          />
+          <label>{method}</label>
+        </div>
+      ))}
     </div>
   );
 };
