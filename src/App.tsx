@@ -1,15 +1,14 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import CheckoutPage from './components/CheckoutPage';
+import Checkout from './components/Checkout';
 
 function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/checkout" element={<CheckoutPage />} />
-        <Route path="*" element={<div className="text-white p-6">Page Not Found</div>} />
-      </Routes>
-    </Router>
+    <div className="dark">
+      <div className="min-h-screen bg-gray-900 text-white p-8">
+        <h1 className="text-3xl font-bold mb-8">Checkout Page</h1>
+        <Checkout />
+      </div>
+    </div>
   );
 }
 
