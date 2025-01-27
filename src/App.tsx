@@ -1,37 +1,48 @@
-import React, { useState } from 'react';
-import TaskList from './components/TaskList';
-import TaskInput from './components/TaskInput';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import ItemList from './components/Cart/ItemList';
+import CartSummary from './components/Cart/CartSummary';
+import ProfileForm from './components/ClientProfile/ProfileForm';
+import ShippingOptions from './components/Shipping/ShippingOptions';
+import PaymentMethods from './components/Payment/PaymentMethods';
+import PayButton from './components/PayButton';
 
-interface Task {
-  id: number;
-  title: string;
-  completed: boolean;
+// Mock data to simulate the behavior
+const mockItems = [
+  { id: 1, name: 'Item 1', quantity: 2, price: 10.0 },
+  { id: 2, name: 'Item 2', quantity: 1, price: 15.5 },
+];
+const mockShippingOptions = [
+  { id: 1, name: 'Standard', price: 5 },
+  { id: 2, name: 'Express', price: 15 },
+];
+const mockPaymentMethods = [
+  { id: 1, name: 'Credit Card' },
+  { id: 2, name: 'PayPal' },
+];
+
+function CheckoutPage() {
+  return (
+    <div className="bg-gray-900 min-h-screen text-white p-8">
+      <h1 className="text-2xl font-bold mb-8">Checkout Page</h1>
+      <ItemList items={mockItems} />
+      <CartSummary total={mockItems.reduce((total, item) => total + item.quantity * item.price, 0)} />
+      <ProfileForm />
+      <ShippingOptions options={mockShippingOptions} />
+      <PaymentMethods methods={mockPaymentMethods} />
+      <PayButton />
+    </div>
+  );
 }
 
 function App() {
-  const [tasks, setTasks] = useState<Task[]>([]);
-
-  const addTask = (taskTitle: string) => {
-    const newTask = {
-      id: tasks.length + 1,
-      title: taskTitle,
-      completed: false
-    };
-    setTasks([...tasks, newTask]);
-  };
-
-  const toggleComplete = (taskId: number) => {
-    setTasks(tasks.map(task =>
-      task.id === taskId ? { ...task, completed: !task.completed } : task
-    ));
-  };
-
   return (
-    <div className="max-w-md mx-auto mt-10">
-      <h1 className="text-xl mb-4 text-center">Task Manager</h1>
-      <TaskInput onAddTask={addTask} />
-      <TaskList tasks={tasks} onToggleComplete={toggleComplete} />
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/checkout" element={<CheckoutPage />} />
+        <Route path="*" element={<div>Not Found</div>} />
+      </Routes>
+    </Router>
   );
 }
 
