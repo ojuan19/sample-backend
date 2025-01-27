@@ -1,0 +1,18 @@
+/* Additional Kanban-specific styles */
+
+body.dark {
+  background-color: #1a202c; /* Tailwind's cool-gray-900 */
+  color: #e2e8f0; /* Tailwind's cool-gray-200 */
+}
+
+.column {
+  border: 2px solid #4c51bf; /* Tailwind's indigo-600 */
+}
+
+.task-card {
+  transition: transform 0.2s ease-in-out;
+}
+
+.task-card:hover {
+  transform: scale(1.05);
+}
