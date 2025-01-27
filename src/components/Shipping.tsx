@@ -1,18 +1,25 @@
 import React, { useState } from 'react';
 
+interface ShippingOption {
+  id: number;
+  name: string;
+  cost: number;
+  estimatedDelivery: string;
+}
+
 const Shipping: React.FC = () => {
-  const shippingOptions = [
-    { id: 1, name: 'Standard Shipping', duration: '3-5 days' },
-    { id: 2, name: 'Express Shipping', duration: '1-2 days' },
+  const [selectedOption, setSelectedOption] = useState<number | null>(null);
+
+  const shippingOptions: ShippingOption[] = [
+    { id: 1, name: 'Standard Shipping', cost: 5.99, estimatedDelivery: '3-5 business days' },
+    { id: 2, name: 'Express Shipping', cost: 9.99, estimatedDelivery: '1-2 business days' },
   ];
 
-  const [selectedOption, setSelectedOption] = useState<number>(shippingOptions[0].id);
-
   return (
-    <div className="p-4 bg-white dark:bg-gray-800">
-      <h2 className="text-lg font-bold mb-4 dark:text-white">Shipping</h2>
-      {shippingOptions.map((option) => (
-        <div className="flex items-center mb-2 dark:text-white" key={option.id}>
+    <div className="bg-gray-800 text-white p-4 rounded-lg shadow-md">
+      <h2 className="text-xl font-bold mb-4">Shipping Options</h2>
+      {shippingOptions.map(option => (
+        <div key={option.id} className="mb-2">
           <input
             type="radio"
             name="shipping"
@@ -20,9 +27,14 @@ const Shipping: React.FC = () => {
             onChange={() => setSelectedOption(option.id)}
             className="mr-2"
           />
-          <label>{option.name} ({option.duration})</label>
+          <span>{option.name} - ${option.cost.toFixed(2)} ({option.estimatedDelivery})</span>
         </div>
       ))}
+      {selectedOption !== null && (
+        <div className="mt-4 font-bold">
+          Selected Option: {shippingOptions.find(option => option.id === selectedOption)?.name}
+        </div>
+      )}
     </div>
   );
 };

@@ -1,34 +1,50 @@
 import React, { useState } from 'react';
 
 interface CartItem {
+  id: number;
   name: string;
-  quantity: number;
   price: number;
+  quantity: number;
 }
 
 const Cart: React.FC = () => {
-  const [items, setItems] = useState<CartItem[]>([ // Sample data
-    { name: 'Product 1', quantity: 1, price: 100 },
-    { name: 'Product 2', quantity: 2, price: 50 },
+  const [items, setItems] = useState<CartItem[]>([
+    { id: 1, name: 'Item 1', price: 29.99, quantity: 1 },
+    { id: 2, name: 'Item 2', price: 39.99, quantity: 2 },
   ]);
 
-  const totalPrice = items.reduce((total, item) => total + item.quantity * item.price, 0);
+  const updateQuantity = (id: number, quantity: number) => {
+    setItems(items.map(item => item.id === id ? { ...item, quantity } : item));
+  };
+
+  const removeItem = (id: number) => {
+    setItems(items.filter(item => item.id !== id));
+  };
+
+  const totalCost = items.reduce((total, item) => total + item.price * item.quantity, 0);
 
   return (
-    <div className="p-4 bg-white dark:bg-gray-800">
-      <h2 className="text-lg font-bold mb-4 dark:text-white">Cart</h2>
-      <ul>
-        {items.map((item, index) => (
-          <li key={index} className="flex justify-between items-center py-2 dark:text-white">
-            <span>{item.name} - ${item.price} x {item.quantity}</span>
-            <span>${item.quantity * item.price}</span>
-          </li>
-        ))}
-      </ul>
-      <div className="border-t mt-4 pt-4 flex justify-between dark:text-white">
-        <span>Total</span>
-        <span>${totalPrice}</span>
-      </div>
+    <div className="bg-gray-800 text-white p-4 rounded-lg shadow-md">
+      <h2 className="text-xl font-bold mb-4">Cart Summary</h2>
+      {items.length === 0 ? (
+        <p>Your cart is empty.</p>
+      ) : (
+        <ul>
+          {items.map(item => (
+            <li key={item.id} className="flex justify-between mb-2">
+              <span>{item.name} (${item.price})</span>
+              <input
+                type="number"
+                value={item.quantity}
+                onChange={e => updateQuantity(item.id, parseInt(e.target.value))}
+                className="w-16 text-black ml-2"
+              />
+              <button onClick={() => removeItem(item.id)} className="ml-4 text-red-500">Remove</button>
+            </li>
+          ))}
+        </ul>
+      )}
+      <div className="mt-4 font-bold">Total: ${totalCost.toFixed(2)}</div>
     </div>
   );
 };

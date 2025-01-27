@@ -1,24 +1,49 @@
 import React, { useState } from 'react';
 
 const Payment: React.FC = () => {
-  const paymentMethods = ['Credit Card', 'PayPal', 'Bank Transfer'];
-  const [selectedMethod, setSelectedMethod] = useState<string>(paymentMethods[0]);
+  const [paymentMethod, setPaymentMethod] = useState('');
 
   return (
-    <div className="p-4 bg-white dark:bg-gray-800">
-      <h2 className="text-lg font-bold mb-4 dark:text-white">Payment</h2>
-      {paymentMethods.map((method) => (
-        <div className="flex items-center mb-2 dark:text-white" key={method}>
+    <div className="bg-gray-800 text-white p-4 rounded-lg shadow-md">
+      <h2 className="text-xl font-bold mb-4">Payment Methods</h2>
+      <div className="mb-2">
+        <label className="block">
           <input
             type="radio"
             name="payment"
-            checked={selectedMethod === method}
-            onChange={() => setSelectedMethod(method)}
+            value="credit"
+            checked={paymentMethod === 'credit'}
+            onChange={() => setPaymentMethod('credit')}
             className="mr-2"
           />
-          <label>{method}</label>
-        </div>
-      ))}
+          Credit Card
+        </label>
+        {paymentMethod === 'credit' && (
+          <div className="mt-2">
+            <input type="text" placeholder="Card Number" className="w-full text-black mb-2" />
+            <input type="text" placeholder="Expiry Date" className="w-full text-black mb-2" />
+            <input type="text" placeholder="CVV" className="w-full text-black mb-2" />
+          </div>
+        )}
+      </div>
+      <div className="mb-2">
+        <label className="block">
+          <input
+            type="radio"
+            name="payment"
+            value="paypal"
+            checked={paymentMethod === 'paypal'}
+            onChange={() => setPaymentMethod('paypal')}
+            className="mr-2"
+          />
+          PayPal
+        </label>
+        {paymentMethod === 'paypal' && (
+          <div className="mt-2">
+            <p>Please proceed with PayPal login to complete your payment.</p>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
