@@ -1,23 +1,32 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Cart from './components/Cart';
-import ClientProfile from './components/ClientProfile';
-import Shipping from './components/Shipping';
-import Payment from './components/Payment';
-import { CartProvider } from './contexts/CartContext';
+import DarkModeToggle from './components/DarkModeToggle';
+import AboutMe from './components/AboutMe';
+import Projects from './components/Projects';
+import Contact from './components/Contact';
+import Navbar from './components/Navbar';
 
 function App() {
   return (
-    <CartProvider>
-      <Router>
-        <Routes>
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/profile" element={<ClientProfile />} />
-          <Route path="/shipping" element={<Shipping />} />
-          <Route path="/payment" element={<Payment />} />
-        </Routes>
-      </Router>
-    </CartProvider>
+    <div className="dark:bg-gray-900 dark:text-gray-100 min-h-screen">
+      <Navbar />
+      <div className="container mx-auto p-4">
+        <header className="flex justify-between items-center">
+          <h1 className="text-4xl font-bold">My Portfolio</h1>
+          <DarkModeToggle />
+        </header>
+        <main>
+          <section id="about">
+            <AboutMe />
+          </section>
+          <section id="projects">
+            <Projects />
+          </section>
+          <section id="contact">
+            <Contact />
+          </section>
+        </main>
+      </div>
+    </div>
   );
 }
 
