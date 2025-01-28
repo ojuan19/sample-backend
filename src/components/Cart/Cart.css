@@ -1,0 +1,46 @@
+/* Cart Component Styles */
+.cart-container {
+  padding: 1rem;
+  background-color: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.cart-container.dark {
+  background-color: #2d3748;
+}
+
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  padding: 0.5rem;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.cart-item.dark {
+  border-color: #4a5568;
+}
+
+button {
+  background-color: #f56565;
+  color: white;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #e53e3e;
+}
+
+/* Enabling dark mode styles */
+.dark-mode .cart-container {
+  background-color: #2d3748;
+  color: #e2e8f0;
+}
+
+.dark-mode .cart-item button {
+  background-color: #e53e3e;
+}
