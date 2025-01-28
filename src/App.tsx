@@ -1,48 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import TimerDisplay from './components/TimerDisplay';
-import TimerControls from './components/TimerControls';
-import { formatTime } from './utils/time';
+import Timer from './components/Timer';
+import Settings from './components/Settings';
+import DarkModeToggle from './components/DarkModeToggle';
 
 const App: React.FC = () => {
-  const [timeRemaining, setTimeRemaining] = useState<number>(3600000); // 60 minutes in milliseconds
-  const [isRunning, setIsRunning] = useState<boolean>(false);
+  const [isDarkMode, setIsDarkMode] = useState<boolean>(true);
 
   useEffect(() => {
-    let interval: NodeJS.Timeout | null = null;
+    document.documentElement.classList.toggle('dark', isDarkMode);
+  }, [isDarkMode]);
 
-    if (isRunning) {
-      interval = setInterval(() => {
-        setTimeRemaining((prevTime) => {
-          if (prevTime <= 0) {
-            clearInterval(interval!);
-            return 0;
-          }
-          return prevTime - 1;
-        });
-      }, 1);
-    } else if (!isRunning && interval) {
-      clearInterval(interval);
-    }
-
-    return () => {
-      if (interval) clearInterval(interval);
-    };
-  }, [isRunning]);
-
-  const handleStart = () => {
-    setIsRunning(true);
-  };
-
-  const handlePause = () => {
-    setIsRunning(false);
-  };
+  const toggleDarkMode = () => setIsDarkMode(prevMode => !prevMode);
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-900">
-      <div className="bg-gray-800 p-8 rounded shadow-md">
-        <TimerDisplay timeRemaining={timeRemaining} />
-        <TimerControls isRunning={isRunning} onStart={handleStart} onPause={handlePause} />
-      </div>
+    <div className="min-h-screen bg-gray-900 text-white flex flex-col items-center pt-8">
+      <Timer />
+      <Settings />
+      <DarkModeToggle toggleDarkMode={toggleDarkMode} />
     </div>
   );
 };
