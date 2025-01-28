@@ -1,28 +1,23 @@
-import React, { useState } from 'react';
-import Sidebar from './components/Sidebar';
-import ChatList from './components/ChatList';
-import MessageWindow from './components/MessageWindow';
-import InputBox from './components/InputBox';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Home from './pages/Home';
+import PlaylistDetail from './pages/PlaylistDetail';
+import { ThemeProvider } from './context/ThemeContext';
+import { PlaylistProvider } from './context/PlaylistContext';
 
-const App = () => {
-    const [globalMessages, setGlobalMessages] = useState<string[]>(['Welcome to the chat!']);
-
-    const handleSend = (msg: string) => {
-        if (msg.trim()) {
-            setGlobalMessages([...globalMessages, msg]);
-        }
-    };
-
-    return (
-        <div className="flex">
-            <Sidebar />
-            <div className="flex-1 flex flex-col h-screen">
-                <ChatList />
-                <MessageWindow />
-                <InputBox onSend={handleSend} />
-            </div>
-        </div>
-    );
-};
+function App() {
+  return (
+    <ThemeProvider>
+      <PlaylistProvider>
+        <Router>
+          <Routes>
+            <Route path="/home" element={<Home />} />
+            <Route path="/playlist/:id" element={<PlaylistDetail />} />
+          </Routes>
+        </Router>
+      </PlaylistProvider>
+    </ThemeProvider>
+  );
+}
 
 export default App;
