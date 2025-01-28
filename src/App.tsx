@@ -1,22 +1,26 @@
-import React from 'react';
-import ToggleSwitch from './components/ToggleSwitch';
-import { ThemeProvider, ThemeContext } from './contexts/ThemeContext';
+import React, { useState } from 'react';
 
-const App: React.FC = () => {
+function App() {
+  const [darkMode, setDarkMode] = useState(false);
+
+  const toggleDarkMode = () => {
+    setDarkMode(!darkMode);
+  };
+
   return (
-    <ThemeProvider>
-      <ThemeContext.Consumer>
-        {({ darkMode }) => (
-          <div className={darkMode ? 'bg-gray-800 text-white min-h-screen' : 'bg-white text-black min-h-screen'}>
-            <div className="container mx-auto p-4">
-              <h1 className="text-3xl font-bold mb-4">Welcome to Dark Mode App</h1>
-              <ToggleSwitch />
-              <p className="mt-4">This is a simple application with a dark mode toggle.</p>
-            </div>
-          </div>
-        )}
-      </ThemeContext.Consumer>
-    </ThemeProvider>
+    <div className={darkMode ? 'dark' : ''}>
+      <div className="min-h-screen flex items-center justify-center bg-white dark:bg-gray-900">
+        <div className="text-center">
+          <h1 className="text-4xl font-bold text-black dark:text-white">Hello World</h1>
+          <button 
+            onClick={toggleDarkMode} 
+            className="mt-4 px-4 py-2 bg-blue-500 text-white rounded shadow hover:bg-blue-600 focus:outline-none"
+          >
+            Toggle Dark Mode
+          </button>
+        </div>
+      </div>
+    </div>
   );
 }
 
