@@ -1,19 +1,29 @@
 import React from 'react';
 
-const Shipping: React.FC = () => {
+interface SLA {
+  id: number;
+  name: string;
+  cost: number;
+}
+
+interface ShippingProps {
+  slas: SLA[];
+  onSelect: (id: number) => void;
+}
+
+const Shipping: React.FC<ShippingProps> = ({ slas, onSelect }) => {
   return (
-    <div className="text-white">
-      <h2 className="text-2xl">Shipping</h2>
-      <div className="mt-4">
-        <div className="flex items-center mb-2">
-          <input type="radio" name="shipping" value="standard" className="mr-2" />
-          <label>Standard (3-5 days)</label>
-        </div>
-        <div className="flex items-center mb-2">
-          <input type="radio" name="shipping" value="express" className="mr-2" />
-          <label>Express (1-2 days)</label>
-        </div>
-      </div>
+    <div className="p-4 bg-gray-900 text-white">
+      <h2 className="text-xl font-bold">Select Shipping Method</h2>
+      <ul>
+        {slas.map((sla) => (
+          <li key={sla.id} className="flex justify-between py-2">
+            <span>{sla.name}</span>
+            <span>${sla.cost.toFixed(2)}</span>
+            <button onClick={() => onSelect(sla.id)} className="ml-4 bg-green-500 px-2 rounded">Select</button>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };

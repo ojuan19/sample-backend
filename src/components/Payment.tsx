@@ -1,20 +1,27 @@
 import React from 'react';
 
-const Payment: React.FC = () => {
+interface PaymentMethod {
+  id: number;
+  method: string;
+}
+
+interface PaymentProps {
+  methods: PaymentMethod[];
+  onPay: () => void;
+}
+
+const Payment: React.FC<PaymentProps> = ({ methods, onPay }) => {
   return (
-    <div className="text-white">
-      <h2 className="text-2xl">Payment</h2>
-      <div className="mt-4">
-        <div className="mb-4">
-          <input type="radio" name="payment" value="credit-card" className="mr-2" />
-          <label>Credit Card</label>
-        </div>
-        <div className="mb-4">
-          <input type="radio" name="payment" value="paypal" className="mr-2" />
-          <label>PayPal</label>
-        </div>
-        {/* Further payment form fields would be here */}
-      </div>
+    <div className="p-4 bg-gray-900 text-white">
+      <h2 className="text-xl font-bold">Payment</h2>
+      <ul>
+        {methods.map((method) => (
+          <li key={method.id} className="flex justify-between py-2">
+            <span>{method.method}</span>
+          </li>
+        ))}
+      </ul>
+      <button onClick={onPay} className="mt-4 bg-blue-500 px-3 py-1 rounded">PAY</button>
     </div>
   );
 };
