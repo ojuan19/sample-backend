@@ -1,35 +1,24 @@
-// App.tsx
-import React, { useState, useEffect } from 'react';
-import './index.css';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Cart from './components/Cart';
+import ClientProfile from './components/ClientProfile';
+import Shipping from './components/Shipping';
+import Payment from './components/Payment';
 
-const App: React.FC = () => {
-  const [theme, setTheme] = useState<'light' | 'dark'>('light');
-
-  useEffect(() => {
-    const userPreference = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-    setTheme(userPreference);
-    document.documentElement.setAttribute('data-theme', userPreference);
-  }, []);
-
-  const toggleTheme = () => {
-    const newTheme = theme === 'light' ? 'dark' : 'light';
-    setTheme(newTheme);
-    document.documentElement.setAttribute('data-theme', newTheme);
-  };
-
+function App() {
   return (
-    <div className="flex items-center justify-center min-h-screen">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Hello World</h1>
-        <button 
-          className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700"
-          onClick={toggleTheme}
-        >
-          Toggle {theme === 'light' ? 'Dark' : 'Light'} Mode
-        </button>
+    <Router>
+      <div className="min-h-screen bg-gray-900 text-white">
+        <Routes>
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/profile" element={<ClientProfile />} />
+          <Route path="/shipping" element={<Shipping />} />
+          <Route path="/payment" element={<Payment />} />
+          <Route path="*" element={<Cart />} />
+        </Routes>
       </div>
-    </div>
+    </Router>
   );
-};
+}
 
 export default App;
