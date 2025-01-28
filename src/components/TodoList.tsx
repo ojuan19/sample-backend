@@ -1,34 +1,28 @@
 import React from 'react';
 
-type TodoListProps = {
+interface TodoListProps {
   todos: string[];
-  removeTodo: (index: number) => void;
-};
+  deleteTodo: (index: number) => void;
+}
 
-const TodoList: React.FC<TodoListProps> = ({ todos, removeTodo }) => {
+const TodoList: React.FC<TodoListProps> = ({ todos, deleteTodo }) => {
   return (
-    <div className="p-4 flex-grow">
-      {todos.length === 0 ? (
-        <p className="text-gray-500">No todos yet!</p>
-      ) : (
-        <ul>
-          {todos.map((todo, index) => (
-            <li
-              key={index}
-              className="flex justify-between items-center bg-gray-800 p-2 my-2 rounded"
-            >
-              <span>{todo}</span>
-              <button
-                onClick={() => removeTodo(index)}
-                className="bg-red-500 text-white p-1 rounded hover:bg-red-700"
-              >
-                Delete
-              </button>
-            </li>
-          ))}
-        </ul>
-      )}
-    </div>
+    <ul className="list-disc w-full max-w-md mx-auto">
+      {todos.map((todo, index) => (
+        <li
+          key={index}
+          className="flex justify-between items-center p-2 border-b dark:border-gray-700"
+        >
+          <span className="dark:text-white">{todo}</span>
+          <button
+            onClick={() => deleteTodo(index)}
+            className="text-red-600 hover:underline"
+          >
+            Delete
+          </button>
+        </li>
+      ))}
+    </ul>
   );
 };
 

@@ -1,31 +1,31 @@
 import React, { useState } from 'react';
 
-type TodoInputProps = {
+interface TodoInputProps {
   addTodo: (todo: string) => void;
-};
+}
 
 const TodoInput: React.FC<TodoInputProps> = ({ addTodo }) => {
   const [inputValue, setInputValue] = useState('');
 
-  const handleAddClick = () => {
-    if (inputValue.trim()) {
+  const handleAddTodo = () => {
+    if (inputValue.trim() !== '') {
       addTodo(inputValue);
       setInputValue('');
     }
   };
 
   return (
-    <div className="p-4">
+    <div className="flex justify-center items-center w-full mb-4">
       <input
         type="text"
+        className="p-2 w-full max-w-md border rounded dark:bg-gray-800 dark:text-white"
+        placeholder="Add a new todo"
         value={inputValue}
         onChange={(e) => setInputValue(e.target.value)}
-        className="p-2 w-full text-black" // Ensure input text is readable
-        placeholder="Add a new todo"
       />
       <button
-        onClick={handleAddClick}
-        className="mt-2 w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-700"
+        onClick={handleAddTodo}
+        className="ml-2 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
       >
         Add
       </button>
