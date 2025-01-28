@@ -1,17 +1,19 @@
-import React, { useContext } from 'react';
-import { UserContext } from '../context/UserContext';
+import React from 'react';
 
 const Shipping: React.FC = () => {
-  const { shipping, updateShipping } = useContext(UserContext);
-
   return (
-    <div className="p-4">
-      <h2 className="text-xl font-bold mb-4">Shipping Options</h2>
-      <select value={shipping} onChange={(e) => updateShipping(e.target.value)} className="block w-full p-2 border">
-        <option value="standard">Standard - Free</option>
-        <option value="express">Express - $10</option>
-        <option value="overnight">Overnight - $20</option>
-      </select>
+    <div className="text-white">
+      <h2 className="text-2xl">Shipping</h2>
+      <div className="mt-4">
+        <div className="flex items-center mb-2">
+          <input type="radio" name="shipping" value="standard" className="mr-2" />
+          <label>Standard (3-5 days)</label>
+        </div>
+        <div className="flex items-center mb-2">
+          <input type="radio" name="shipping" value="express" className="mr-2" />
+          <label>Express (1-2 days)</label>
+        </div>
+      </div>
     </div>
   );
 };

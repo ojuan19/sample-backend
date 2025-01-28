@@ -1,27 +1,24 @@
-import React, { useContext, useState } from 'react';
-import { UserContext } from '../context/UserContext';
+import React from 'react';
 
 const ClientProfile: React.FC = () => {
-  const { profile, updateProfile } = useContext(UserContext);
-  const [name, setName] = useState(profile.name);
-  const [address, setAddress] = useState(profile.address);
-  const [email, setEmail] = useState(profile.email);
-  const [phone, setPhone] = useState(profile.phone);
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    updateProfile({ name, address, email, phone });
-  };
-
   return (
-    <form className="p-4" onSubmit={handleSubmit}>
-      <h2 className="text-xl font-bold mb-4">Client Profile</h2>
-      <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Name" className="block w-full mb-2 p-2 border" />
-      <input type="text" value={address} onChange={(e) => setAddress(e.target.value)} placeholder="Address" className="block w-full mb-2 p-2 border" />
-      <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" className="block w-full mb-2 p-2 border" />
-      <input type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="Phone" className="block w-full mb-2 p-2 border" />
-      <button type="submit" className="bg-blue-500 text-white py-2 px-4 rounded">Update</button>
-    </form>
+    <div className="text-white">
+      <h2 className="text-2xl">Client Profile</h2>
+      <form className="mt-4">
+        <div className="mb-4">
+          <label className="block mb-1">Name</label>
+          <input type="text" className="w-full bg-gray-800 text-white p-2" required />
+        </div>
+        <div className="mb-4">
+          <label className="block mb-1">Email</label>
+          <input type="email" className="w-full bg-gray-800 text-white p-2" required />
+        </div>
+        <div className="mb-4">
+          <label className="block mb-1">Address</label>
+          <input type="text" className="w-full bg-gray-800 text-white p-2" required />
+        </div>
+      </form>
+    </div>
   );
 };
 
