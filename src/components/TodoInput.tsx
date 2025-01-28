@@ -7,27 +7,27 @@ interface TodoInputProps {
 const TodoInput: React.FC<TodoInputProps> = ({ addTodo }) => {
   const [inputValue, setInputValue] = useState('');
 
-  const handleAddTodo = () => {
-    if (inputValue.trim() !== '') {
+  const handleAddClick = () => {
+    if(inputValue.trim()) {
       addTodo(inputValue);
       setInputValue('');
     }
   };
 
   return (
-    <div className="flex justify-center items-center w-full mb-4">
-      <input
-        type="text"
-        className="p-2 w-full max-w-md border rounded dark:bg-gray-800 dark:text-white"
-        placeholder="Add a new todo"
+    <div className="flex flex-col">
+      <input 
+        type="text" 
+        className="p-2 mb-2 text-black"
+        placeholder="Enter a new task"
         value={inputValue}
         onChange={(e) => setInputValue(e.target.value)}
       />
-      <button
-        onClick={handleAddTodo}
-        className="ml-2 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+      <button 
+        className="bg-blue-500 p-2 text-white"
+        onClick={handleAddClick}
       >
-        Add
+        Add Task
       </button>
     </div>
   );
